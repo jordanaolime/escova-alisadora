@@ -1,0 +1,107 @@
+You are updating the existing Replit sales page project for the “Escova Alisadora”.
+
+IMPORTANT:
+This instruction is in English.
+ALL visible page content must remain in Portuguese (Brazil).
+Do NOT change the structure, design, or persuasive copy unless necessary.
+Only apply the updates below.
+
+====================================================
+MANDATORY UPDATES
+====================================================
+
+1) CHECKOUT LINK (VERY IMPORTANT)
+
+Use this exact link for ALL purchase buttons, CTAs, sticky bars, hero buttons, final CTA, and any other “buy” button on the page:
+
+https://app.coinzz.com.br/checkout/escova-alisadora-8apwj-0
+
+Requirements:
+- Every button that represents buying or ordering must redirect directly to this link.
+- Use target="_blank" only if the project already uses it. Otherwise, keep same-tab navigation.
+- Remove any placeholder # links.
+- Double-check there are NO old or empty links left in the code.
+- Ensure even the sticky mobile CTA and WhatsApp-like order buttons (if they trigger purchase) redirect to this exact checkout link.
+
+All CTAs should continue using persuasive PT-BR text such as:
+- “PEDIR AGORA E PAGAR NA ENTREGA”
+- “FINALIZAR PEDIDO E PAGAR NA ENTREGA”
+- “QUERO PAGAR NA ENTREGA”
+- “COMPRAR AGORA – PAGAR NA ENTREGA”
+
+But the URL must ALWAYS be:
+https://app.coinzz.com.br/checkout/escova-alisadora-8apwj-0
+
+====================================================
+2) PRICE UPDATE
+====================================================
+
+Set the official price across the entire page to:
+
+R$ 89,90
+
+Update:
+- Offer section
+- Price anchoring section
+- Hero (if price appears there)
+- Sticky bar (if price appears there)
+- Any modal or summary section
+- Any structured data (if present)
+
+If there is a “De: R$ ___ / Por: R$ ___” section:
+Keep it persuasive but ensure the final visible price is clearly:
+
+R$ 89,90
+
+Example (in Portuguese, visible to users):
+De: R$ 149,90  
+Por apenas: R$ 89,90  
+OU  
+OFERTA ESPECIAL: R$ 89,90
+
+Do NOT invent installment values unless they already exist.
+Do NOT add new pricing models.
+Keep it clean and strong.
+
+====================================================
+3) KEEP STRONG EMPHASIS ON “PAGUE SOMENTE NA ENTREGA”
+====================================================
+
+Maintain the aggressive positioning of:
+
+“PAGUE SOMENTE NA ENTREGA”
+“VOCÊ SÓ PAGA QUANDO RECEBER EM CASA”
+“SEM PAGAMENTO ANTECIPADO”
+
+Do not remove this messaging.
+It must stay prominent in:
+- Header
+- Hero
+- Offer section
+- FAQ
+- Final CTA
+
+====================================================
+4) QUALITY CONTROL CHECK
+====================================================
+
+After applying updates:
+
+- Verify all buttons redirect correctly.
+- Verify R$ 89,90 appears consistently.
+- Verify no placeholder links remain.
+- Ensure no English text is visible to users.
+- Ensure layout and responsiveness remain intact.
+
+====================================================
+OUTPUT
+====================================================
+
+Return the updated:
+
+1) index.html
+2) styles.css (only if changes were necessary)
+3) script.js (only if changes were necessary)
+
+Do not rewrite the entire design unless required.
+Only apply the requested modifications with precision.
