@@ -1,0 +1,70 @@
+```text
+You are editing the existing Replit project (sales page) for “Escova Alisadora”.
+
+RULES
+- This instruction is in English.
+- ALL visible text/content on the page must be in Portuguese (Brazil).
+- Keep the current layout/copy; only enhance the visual emphasis of the offer.
+- Do not add fake claims or exaggerated guarantees.
+
+GOAL
+Make “PAGUE SOMENTE NA ENTREGA” / “PAGUE NA ENTREGA” stand out BEAUTIFULLY with subtle, premium effects (not tacky).
+
+WHAT TO CHANGE (VISUAL HIGHLIGHT)
+1) Add a “hero badge” above the main headline:
+   - Text (PT-BR): “PAGUE SOMENTE NA ENTREGA”
+   - Style: pill/badge, high contrast, premium.
+   - Add a subtle glow + gradient border OR soft animated shimmer (very subtle).
+   - Include a small icon (e.g., ✓ or a simple truck icon SVG inline).
+
+2) Add an “offer ribbon” on the header (top-right or under the CTA):
+   - Text (PT-BR): “Você só paga quando receber em casa”
+   - Keep it short and readable.
+
+3) Upgrade ALL primary CTA buttons:
+   - Add microcopy under the button (PT-BR): “Sem pagamento adiantado.”
+   - Add hover animation (slight lift) + soft shadow.
+   - Add a tiny “Pagamento na entrega” tag next to the button label (optional, if clean).
+
+4) Add a floating “Pay on delivery” mini-banner (mobile only):
+   - Fixed near bottom but ABOVE the sticky CTA bar.
+   - Text (PT-BR): “PAGUE NA ENTREGA ✅”
+   - Can fade in after scrolling 20% of the page and fade out near the footer.
+   - Keep it minimal and not blocking content.
+
+ANIMATION / EFFECTS (KEEP IT ELEGANT)
+- Use CSS animations only (no heavy libraries).
+- Use subtle motion: shimmer, pulse, or gradient shift (slow).
+- Respect reduced motion preferences:
+  - If user has prefers-reduced-motion: reduce, disable animations.
+
+IMPLEMENTATION DETAILS
+- Modify index.html to insert the badge and ribbon in the hero/header areas.
+- Modify styles.css:
+  - Create classes: .pay-badge, .pay-ribbon, .cta-microcopy, .mobile-pay-banner
+  - Add keyframes for shimmer/pulse with low intensity.
+  - Add :hover states for buttons.
+  - Add @media queries for mobile.
+  - Add @media (prefers-reduced-motion: reduce) to turn off animations.
+- Modify script.js:
+  - Add scroll listener for showing/hiding the mobile mini-banner.
+  - Ensure it does NOT interfere with existing sticky CTA behavior.
+
+CONTENT (PT-BR) TO USE EXACTLY
+- “PAGUE SOMENTE NA ENTREGA”
+- “Você só paga quando receber em casa”
+- “Sem pagamento adiantado.”
+- “PAGUE NA ENTREGA ✅”
+
+IMPORTANT
+- Do NOT change the checkout URL wiring already implemented.
+- Do NOT change the price.
+- Do NOT translate anything to English on the visible page.
+
+OUTPUT
+Return updated:
+1) index.html
+2) styles.css
+3) script.js
+Only change what is necessary to achieve the highlight effect.
+```

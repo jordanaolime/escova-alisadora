@@ -1,10 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Check, Star, Truck, ShieldCheck, ArrowRight, Zap, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 // Assets
 import imgHero from "@/assets/images/hero-main.jpg";
@@ -61,9 +60,22 @@ const faqItems = [
 ];
 
 export default function Home() {
-  // Scroll to top on load
+  const [showMobileBanner, setShowMobileBanner] = useState(false);
+
   useEffect(() => {
     window.scrollTo(0, 0);
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      
+      // Show after 20% scroll, hide near footer
+      const scrollPercent = (scrollY / (documentHeight - windowHeight)) * 100;
+      setShowMobileBanner(scrollPercent > 20 && scrollPercent < 90);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const handleBuyClick = () => {
@@ -72,25 +84,48 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background font-sans overflow-x-hidden">
+      {/* Mobile Pay Banner */}
+      <AnimatePresence>
+        {showMobileBanner && (
+          <motion.div 
+            initial={{ opacity: 0, y: 50, x: "-50%" }}
+            animate={{ opacity: 1, y: 0, x: "-50%" }}
+            exit={{ opacity: 0, y: 50, x: "-50%" }}
+            className="mobile-pay-banner md:hidden"
+          >
+            PAGUE NA ENTREGA ✅
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Sticky Header */}
       <div className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur shadow-sm border-b">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="font-display font-bold text-xl md:text-2xl tracking-tight text-foreground">
-            Escova<span className="text-primary">Alisadora</span>
+          <div className="flex flex-col">
+            <div className="font-display font-bold text-xl md:text-2xl tracking-tight text-foreground leading-tight">
+              Escova<span className="text-primary">Alisadora</span>
+            </div>
+            <div className="pay-ribbon hidden md:inline-flex mt-0.5 scale-90 origin-left">
+              <Check className="w-3 h-3" /> Você só paga quando receber em casa
+            </div>
           </div>
-          <Button 
-            onClick={handleBuyClick} 
-            className="hidden md:flex bg-cta-green hover:bg-green-700 text-white font-bold animate-pulse shadow-lg hover:shadow-green-500/25 transition-all"
-          >
-            PEDIR AGORA - PAGAR NA ENTREGA
-          </Button>
-          <Button 
-            onClick={handleBuyClick} 
-            size="sm"
-            className="md:hidden bg-cta-green hover:bg-green-700 text-white font-bold shadow-md"
-          >
-            COMPRAR
-          </Button>
+          
+          <div className="flex flex-col items-end gap-1">
+            <Button 
+              onClick={handleBuyClick} 
+              className="hidden md:flex bg-cta-green hover:bg-green-700 text-white font-bold shimmer-effect cta-lift shadow-lg hover:shadow-green-500/25 transition-all"
+            >
+              PEDIR AGORA - PAGAR NA ENTREGA
+            </Button>
+            <Button 
+              onClick={handleBuyClick} 
+              size="sm"
+              className="md:hidden bg-cta-green hover:bg-green-700 text-white font-bold shadow-md shimmer-effect"
+            >
+              COMPRAR
+            </Button>
+            <span className="text-[10px] text-gray-500 font-medium hidden md:block">Sem pagamento adiantado.</span>
+          </div>
         </div>
       </div>
 
@@ -104,9 +139,12 @@ export default function Home() {
               transition={{ duration: 0.6 }}
               className="md:w-1/2 text-center md:text-left z-10"
             >
-              <Badge variant="outline" className="mb-4 text-green-700 bg-green-50 border-green-200 px-3 py-1 text-sm font-semibold tracking-wide uppercase">
-                <Truck className="w-4 h-4 mr-1 inline" /> Pague Somente na Entrega
-              </Badge>
+              <div className="mb-6 inline-block">
+                <div className="pay-badge shimmer-effect">
+                  <Truck className="w-3.5 h-3.5" /> PAGUE SOMENTE NA ENTREGA
+                </div>
+              </div>
+
               <h1 className="text-4xl md:text-6xl font-display font-black leading-tight text-gray-900 mb-6">
                 Cabelos de Salão no <span className="text-primary">Conforto de Casa</span>
               </h1>
@@ -115,14 +153,17 @@ export default function Home() {
               </p>
               
               <div className="flex flex-col sm:flex-row items-center gap-4 justify-center md:justify-start">
-                <Button 
-                  onClick={handleBuyClick} 
-                  size="lg" 
-                  className="w-full sm:w-auto text-lg px-8 py-6 bg-cta-green hover:bg-green-700 text-white shadow-xl hover:shadow-green-500/30 font-bold transition-all transform hover:-translate-y-1"
-                >
-                  QUERO COMPRAR AGORA
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Button>
+                <div className="flex flex-col gap-2 w-full sm:w-auto">
+                  <Button 
+                    onClick={handleBuyClick} 
+                    size="lg" 
+                    className="w-full text-lg px-8 py-6 bg-cta-green hover:bg-green-700 text-white shadow-xl hover:shadow-green-500/30 font-bold transition-all transform cta-lift shimmer-effect"
+                  >
+                    QUERO COMPRAR AGORA
+                    <ArrowRight className="ml-2 w-5 h-5" />
+                  </Button>
+                  <span className="text-xs text-center text-gray-500 font-bold">Sem pagamento adiantado.</span>
+                </div>
                 <div className="flex flex-col text-sm text-gray-500 text-center sm:text-left">
                   <span className="flex items-center gap-1"><ShieldCheck className="w-4 h-4 text-green-600" /> Garantia de 30 dias</span>
                   <span className="flex items-center gap-1"><Truck className="w-4 h-4 text-green-600" /> Frete Grátis hoje</span>
@@ -240,10 +281,11 @@ export default function Home() {
              <img src={imgProduct} alt="Detalhes do Produto" className="mx-auto rounded-2xl shadow-2xl relative z-10" />
              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-r from-primary/20 to-purple-500/20 blur-3xl rounded-full -z-10 opacity-50"></div>
           </div>
-          <div className="mt-12">
-            <Button onClick={handleBuyClick} size="lg" className="bg-cta-green hover:bg-green-700 text-white font-bold px-12 py-6 text-xl shadow-xl hover:shadow-green-500/30">
+          <div className="mt-12 flex flex-col items-center gap-2">
+            <Button onClick={handleBuyClick} size="lg" className="bg-cta-green hover:bg-green-700 text-white font-bold px-12 py-6 text-xl shadow-xl hover:shadow-green-500/30 cta-lift shimmer-effect">
               GARANTIR A MINHA AGORA
             </Button>
+            <span className="text-sm font-bold text-gray-500 uppercase tracking-tighter">Sem pagamento adiantado.</span>
           </div>
         </div>
       </section>
@@ -272,19 +314,22 @@ export default function Home() {
               </p>
 
               <ul className="text-left space-y-3 mb-8 text-gray-600">
-                <li className="flex items-center gap-2"><Check className="w-5 h-5 text-green-500" /> <span>Pague somente na entrega</span></li>
+                <li className="flex items-center gap-2"><Check className="w-5 h-5 text-green-500" /> <span className="font-bold text-green-700">Pague somente na entrega</span></li>
                 <li className="flex items-center gap-2"><Check className="w-5 h-5 text-green-500" /> <span>Frete Grátis</span></li>
                 <li className="flex items-center gap-2"><Check className="w-5 h-5 text-green-500" /> <span>Garantia de Satisfação</span></li>
                 <li className="flex items-center gap-2"><Check className="w-5 h-5 text-green-500" /> <span>Envio Imediato</span></li>
               </ul>
 
-              <Button 
-                onClick={handleBuyClick} 
-                className="w-full bg-cta-green hover:bg-green-700 text-white font-bold py-6 text-lg shadow-lg hover:shadow-green-500/40 animate-pulse"
-              >
-                PEDIR AGORA
-              </Button>
-              <p className="text-xs text-gray-400 mt-3 flex items-center justify-center gap-1">
+              <div className="flex flex-col gap-2">
+                <Button 
+                  onClick={handleBuyClick} 
+                  className="w-full bg-cta-green hover:bg-green-700 text-white font-bold py-6 text-lg shadow-lg hover:shadow-green-500/40 shimmer-effect cta-lift"
+                >
+                  PEDIR AGORA
+                </Button>
+                <span className="text-xs text-gray-500 font-black uppercase">Sem pagamento adiantado.</span>
+              </div>
+              <p className="text-xs text-gray-400 mt-4 flex items-center justify-center gap-1">
                 <ShieldCheck className="w-3 h-3" /> Compra 100% Segura
               </p>
             </div>
@@ -318,14 +363,17 @@ export default function Home() {
             <span className="text-xs text-gray-500 line-through">{PRICE_OLD}</span>
             <span className="text-xl font-bold text-gray-900">{PRICE_NEW}</span>
           </div>
-          <Button onClick={handleBuyClick} className="flex-1 bg-cta-green hover:bg-green-700 text-white font-bold shadow-lg">
-            COMPRAR AGORA
-          </Button>
+          <div className="flex-1 flex flex-col items-center gap-1">
+            <Button onClick={handleBuyClick} className="w-full bg-cta-green hover:bg-green-700 text-white font-bold shadow-lg shimmer-effect">
+              COMPRAR AGORA
+            </Button>
+            <span className="text-[9px] font-bold text-gray-500 uppercase">Sem pagamento adiantado.</span>
+          </div>
         </div>
       </div>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-gray-400 py-12 mb-16 md:mb-0">
+      <footer className="bg-gray-900 text-gray-400 py-12 mb-24 md:mb-0">
         <div className="container mx-auto px-4 text-center">
           <div className="font-display font-bold text-2xl text-white mb-6">
             Escova<span className="text-primary">Alisadora</span>
