@@ -14,8 +14,8 @@ import imgBeforeAfter2 from "@/assets/images/before-after-2.jpg";
 import imgBeforeAfter3 from "@/assets/images/before-after-3.jpg";
 
 const CHECKOUT_LINK = "https://app.coinzz.com.br/checkout/escova-alisadora-8apwj-0";
-const PRICE_OLD = "R$ 149,90";
-const PRICE_NEW = "R$ 89,90";
+const PRICE_OLD = "R$ 249,90";
+const PRICE_NEW = "R$ 119,90";
 
 const features = [
   {
